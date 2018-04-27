@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PlayStore2.iml" filepath="$PROJECT_DIR$/PlayStore2.iml" />
+      <module fileurl="file://D:\ws_all\as_ws\PlayStore2\playstroe\app.iml" filepath="D:\ws_all\as_ws\PlayStore2\playstroe\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pagetabindicator/pagetabindicator.iml" filepath="$PROJECT_DIR$/pagetabindicator/pagetabindicator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/playstroe/playstroe.iml" filepath="$PROJECT_DIR$/playstroe/playstroe.iml" />
+    </modules>
+  </component>
+</project>

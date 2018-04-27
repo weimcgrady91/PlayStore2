@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">软件商店</string>
+    <string name="navigation_drawer_open">开</string>
+    <string name="navigation_drawer_close">关</string>
+    <string name="page_title_home">首页</string>
+    <string name="page_title_app">应用</string>
+    <string name="page_title_game">游戏</string>
+    <string name="page_title_recommend">推荐</string>
+    <string name="page_title_subject">专题</string>
+    <string name="page_title_catetory">分类</string>
+    <string name="page_title_hot">排行</string>
+    <string name="btn_reload_text">重新加载</string>
+</resources>
