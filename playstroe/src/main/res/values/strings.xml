@@ -10,7 +10,9 @@
     <string name="page_title_catetory">Category</string>
     <string name="page_title_hot">Hot</string>
     <string name="btn_reload_text">Reload</string>
+    <string name="load_more">Loading More</string>
+    <string name="load_more_error">Loading Error</string>
+    <string name="no_more_data">No More Data</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

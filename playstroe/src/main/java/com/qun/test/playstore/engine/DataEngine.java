@@ -5,7 +5,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.qun.test.playstore.TaskUtil;
+import com.qun.test.playstore.Util.TaskUtil;
 
 /**
  * Created by Administrator on 2018/4/27 0027.

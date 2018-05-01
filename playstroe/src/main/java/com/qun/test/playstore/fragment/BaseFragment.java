@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.qun.test.playstore.R;
@@ -19,6 +20,9 @@ import com.qun.test.playstore.engine.DataEngine;
  */
 
 public abstract class BaseFragment extends Fragment {
+
+    private Button mBtnReload;
+
     public abstract View obtainRootView(Context context);
 
     public abstract void onLoadSuccess(String result);
@@ -37,7 +41,6 @@ public abstract class BaseFragment extends Fragment {
     public final int VIEW_STATE_LOADING = 1;
     public final int VIEW_STATE_ERROR = 2;
     public final int VIEW_STATE_EMPTY = 3;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,13 @@ public abstract class BaseFragment extends Fragment {
         mLoadingView = mRootView.findViewById(R.id.loadview);
         mErrorView = mRootView.findViewById(R.id.errorview);
         mEmptyView = mRootView.findViewById(R.id.emptyview);
+        mBtnReload = mRootView.findViewById(R.id.btn_reload);
+        mBtnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadData();
+            }
+        });
         mContentView = obtainRootView(getActivity());
         FrameLayout fl = mRootView.findViewById(R.id.fl);
         fl.addView(mContentView);
@@ -57,23 +67,17 @@ public abstract class BaseFragment extends Fragment {
         return mRootView;
     }
 
-    private void loadData() {
+    public void loadData() {
         updateViewState(VIEW_STATE_LOADING);
         DataEngine dataEngine = new DataEngine(new DataEngine.DataEngineListener() {
             @Override
             public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) {
-                    updateViewState(VIEW_STATE_EMPTY);
-                } else {
-                    onLoadSuccess(result);
-                    updateViewState(VIEW_STATE_SUCCESS);
-                }
+                onLoadSuccess(result);
             }
 
             @Override
             public void onFailure() {
                 onLoadFailure();
-                updateViewState(VIEW_STATE_ERROR);
             }
         });
         dataEngine.fetchData(getRequestUrl());

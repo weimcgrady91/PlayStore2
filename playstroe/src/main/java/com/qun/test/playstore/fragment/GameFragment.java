@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.qun.test.playstore.domain.BaseRequestBean;
+
 /**
  * Created by Administrator on 2018/4/26 0026.
  */
@@ -19,8 +21,9 @@ public class GameFragment extends BaseFragment {
         return tv;
     }
 
+
     @Override
-    public void onLoadSuccess(String result) {
+    public void onLoadSuccess(String t) {
 
     }
 

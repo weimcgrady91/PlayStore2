@@ -32,4 +32,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jaeger.statusbarutil:library:1.5.0'
     implementation project(':pagetabindicator')
+    implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

@@ -1,20 +1,24 @@
 package com.qun.test.playstore.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.qun.test.playstore.App;
 import com.qun.test.playstore.R;
 import com.qun.test.playstore.adapter.BasicAdapter;
 import com.qun.test.playstore.adapter.BasicViewHolder;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.qun.test.playstore.adapter.HomeViewHolder;
+import com.qun.test.playstore.constant.ServerConfig;
+import com.qun.test.playstore.domain.AppInfo;
+import com.qun.test.playstore.domain.HomeBean;
 
 /**
  * Created by Administrator on 2018/4/26 0026.
@@ -23,66 +27,68 @@ import java.util.List;
 public class HomeFragment extends BaseFragment {
 
     private ListView mLv;
-    private HomeFrgAdapter mAdapter;
+    private HomeAdapter mAdapter;
 
     @Override
     public View obtainRootView(Context context) {
         View contentView = LayoutInflater.from(context).inflate(R.layout.fragment_home, null, false);
         mLv = contentView.findViewById(R.id.lv);
-        mAdapter = new HomeFrgAdapter();
+        mLv.setSelector(new ColorDrawable());
+        mLv.setDivider(null);
+        mLv.setCacheColorHint(Color.TRANSPARENT);
+        mAdapter = new HomeAdapter();
         mLv.setAdapter(mAdapter);
         return contentView;
     }
 
-    public class HomeFrgViewHolder extends BasicViewHolder {
-        public TextView mTvTitle;
+    public class HomeAdapter extends BasicAdapter<AppInfo> {
 
-        public HomeFrgViewHolder(View convertView) {
-            super(convertView);
+        @Override
+        public BasicViewHolder getViewHolder() {
+            return new HomeViewHolder();
         }
 
         @Override
-        public void findView() {
-            mTvTitle = mContentView.findViewById(R.id.tv_title);
+        public void loadMore() {
+            Log.e("weiqun12345", "home load more");
+            loadData();
         }
     }
 
-    public class HomeFrgAdapter extends BasicAdapter<String, HomeFrgViewHolder> {
-        @Override
-        public View getItemView(ViewGroup parent) {
-            return LayoutInflater.from(getActivity()).inflate(R.layout.item_home_frg, parent, false);
-        }
-
-        @Override
-        public HomeFrgViewHolder getViewHolder(View rootView) {
-            return new HomeFrgViewHolder(rootView);
-        }
-
-        @Override
-        public void bindView(HomeFrgViewHolder viewHolder, int position) {
-            String data = mData.get(position);
-            TextView title = viewHolder.mTvTitle;
-            title.setText(data);
-        }
-    }
 
     @Override
     public void onLoadSuccess(String result) {
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            data.add("这是第" + i + "个测试条目");
+        Log.e("weiqun12345", "baseRequestBean result=" + result.toString());
+        Gson gson = new Gson();
+        HomeBean bean = gson.fromJson(result, HomeBean.class);
+        if (bean.list.size() == 0 && mAdapter.getDataSize() == 0) {
+            updateViewState(VIEW_STATE_EMPTY);
+        } else {
+            mAdapter.addData(bean.list);
+            updateViewState(VIEW_STATE_SUCCESS);
         }
-        mAdapter.setData(data);
     }
+
 
     @Override
     public void onLoadFailure() {
-
+        Toast.makeText(App.sContext, "loadFailure", Toast.LENGTH_SHORT).show();
+        if (mAdapter.getDataSize() == 0) {
+            updateViewState(VIEW_STATE_ERROR);
+        } else {
+            mAdapter.addData(null);
+            updateViewState(VIEW_STATE_SUCCESS);
+        }
     }
 
     @Override
     public String getRequestUrl() {
-        return "http://www.baidu.com";
+        StringBuilder sb = new StringBuilder();
+        sb.append(ServerConfig.HOST);
+        sb.append(ServerConfig.PATH_HOME);
+        sb.append("?index=" + mAdapter.getDataIndex());
+        Log.e("weiqun12345", "url=" + sb.toString());
+        return sb.toString();
     }
 
     public HomeFragment() {

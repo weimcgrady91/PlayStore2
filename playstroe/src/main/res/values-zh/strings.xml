@@ -11,4 +11,7 @@
     <string name="page_title_catetory">分类</string>
     <string name="page_title_hot">排行</string>
     <string name="btn_reload_text">重新加载</string>
+    <string name="load_more">正在加载...</string>
+    <string name="load_more_error">加载失败,点击重试</string>
+    <string name="no_more_data">没有更多数据了</string>
 </resources>

@@ -1,10 +1,17 @@
-package com.qun.test.playstore;
+package com.qun.test.playstore.Util;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
@@ -42,8 +49,52 @@ public class TaskUtil {
         mExecutorService.execute(new Runnable() {
             @Override
             public void run() {
-                String result = requestServer();
+                String result;
+                result = getRequestFromCache();
+                if (TextUtils.isEmpty(result)) {
+                    result = requestServer();
+                }
                 listener.onTaskFinish(result);
+            }
+
+            public String getRequestFromCache() {
+                try {
+                    File cacheFile = CacheUtil.getCacheFile(dataUrl);
+                    if (cacheFile.exists()) {
+                        BufferedReader br = new BufferedReader(new FileReader(cacheFile));
+                        long now = System.currentTimeMillis();
+                        long old = Long.valueOf(br.readLine());
+                        if (now < old) {
+                            StringBuffer sb = new StringBuffer();
+                            String line;
+                            while ((line = br.readLine()) != null) {
+                                sb.append(line);
+                            }
+                            return sb.toString();
+                        } else {
+                            cacheFile.delete();
+                            return null;
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            public void putRequestToCache(String result) {
+                try {
+                    File cacheFile = CacheUtil.getCacheFile(dataUrl);
+                    FileOutputStream fos = new FileOutputStream(cacheFile);
+                    OutputStreamWriter osw = new OutputStreamWriter(fos);
+                    long deadline = System.currentTimeMillis() + 30 * 60 * 1000;
+                    osw.write(deadline + "\n");
+                    osw.write(result);
+                    osw.flush();
+                    osw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             public String requestServer() {
@@ -67,6 +118,7 @@ public class TaskUtil {
                         br.close();
                         connection.disconnect();
                         Log.e("weiqun12345", "succ=" + sb.toString());
+                        putRequestToCache(sb.toString());
                         return sb.toString();
                     }
                 } catch (IOException e) {
