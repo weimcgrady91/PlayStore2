@@ -7,10 +7,9 @@ import android.widget.TextView;
 
 import com.qun.test.playstore.App;
 import com.qun.test.playstore.R;
-import com.qun.test.playstore.Util.UIUtil;
+import com.qun.test.playstore.util.UIUtil;
 import com.qun.test.playstore.constant.ServerConfig;
 import com.qun.test.playstore.domain.AppInfo;
-import com.qun.test.playstore.domain.HomeBean;
 import com.squareup.picasso.Picasso;
 
 

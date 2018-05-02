@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.qun.test.playstore.App;
-import com.qun.test.playstore.Util.UIUtil;
+import com.qun.test.playstore.util.UIUtil;
 import com.qun.test.playstore.constant.ServerConfig;
 import com.qun.test.playstore.ui.fly.ShakeListener;
 import com.qun.test.playstore.ui.fly.StellarMap;

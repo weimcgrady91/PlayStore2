@@ -3,7 +3,7 @@ package com.qun.test.playstore.adapter;
 import android.view.View;
 
 import com.qun.test.playstore.R;
-import com.qun.test.playstore.Util.UIUtil;
+import com.qun.test.playstore.util.UIUtil;
 
 /**
  * Created by Administrator on 2018/4/30.

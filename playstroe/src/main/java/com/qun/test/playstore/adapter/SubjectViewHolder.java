@@ -1,11 +1,10 @@
 package com.qun.test.playstore.adapter;
 
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qun.test.playstore.R;
-import com.qun.test.playstore.Util.UIUtil;
+import com.qun.test.playstore.util.UIUtil;
 import com.qun.test.playstore.constant.ServerConfig;
 import com.qun.test.playstore.domain.SubBean;
 import com.squareup.picasso.Picasso;

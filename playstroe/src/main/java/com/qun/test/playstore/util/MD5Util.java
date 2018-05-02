@@ -1,4 +1,4 @@
-package com.qun.test.playstore.Util;
+package com.qun.test.playstore.util;
 
 import java.security.MessageDigest;
 
