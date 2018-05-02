@@ -39,7 +39,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
         } else {
             return mData.size() - 1;
         }
-        
+
     }
 
     public void addData(List<T> data) {
