@@ -39,6 +39,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
         } else {
             return mData.size() - 1;
         }
+        
     }
 
     public void addData(List<T> data) {
@@ -98,7 +99,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter {
         } else {
             viewHolder = (BasicViewHolder) convertView.getTag();
         }
-        if (type == TYPE_LOAD_MORE) {
+        if (type == TYPE_LOAD_MORE ) {
             mLoadMoreViewHolder = (LoadMoreViewHolder) viewHolder;
             mLoadMoreViewHolder.mItemView.setOnClickListener(new View.OnClickListener() {
                 @Override
