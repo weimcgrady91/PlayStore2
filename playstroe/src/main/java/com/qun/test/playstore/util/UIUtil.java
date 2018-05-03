@@ -1,6 +1,7 @@
 package com.qun.test.playstore.util;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,5 +52,10 @@ public class UIUtil {
 
     public static Handler getHandler() {
         return App.getHandler();
+    }
+
+    // 获取图片
+    public static Drawable getDrawable(int id) {
+        return getContext().getResources().getDrawable(id);
     }
 }
